@@ -1,0 +1,88 @@
+BENCHMARKING THE MICRODRAMA FORMAT: MARKET CHARTS, EPISODE STRUCTURE AND SCRIPT EVALUATION
+Reference research for an AI microdrama generator. Market data collected as on October 14, 2026.
+
+1. PURPOSE
+The script evaluator used in this project scores each script against its own rules: character consistency, voice, tone, secrets and timeline. That measures internal consistency, not whether an episode is compelling by the standards of the commercial microdrama market. A labelled dataset of real episodes was proposed in the project plan (Section 8.7, "Dataset D1", about 300 labelled episodes) but has not been built. Until it exists, this document serves as the external baseline: what is charting now, and the structural rules practitioners report that hit series follow.
+
+2. WHAT IS CHARTING (WEEK OF OCTOBER 5 TO 14, 2026)
+2.1 Most-watched vertical series, week of October 5 to 11 (Owl & Co Vertical Index, via The Hollywood Reporter; views for the week)
+ 1. Love Is A Dangerous Game (DramaBox): 17.9M
+ 2. The Triplets' Final Regret (ReelShort): 16.1M
+ 3. Forbidden Fling With My Bestie's Dad (DramaBox): 16.1M
+ 4. Too Ugly To Marry, She's a Hidden Beauty! (DramaBox): 15.5M
+ 5. The new CEO treats my sex addiction (DramaBox): 14.0M
+ 6. Poisoned by His Love (DramaBox): 13.2M
+ 7. Chosen by the Dragon Baby: His Human Mate (DramaBox): 12.2M
+ 8. The Hidden Billionaire Reclaims All (DramaWave): 12.1M
+ 9. What If I'm One Hell of a Fighter (DramaBox): 10.0M
+10. Bound by Hatred (ReelShort): 9.5M
+
+2.2 ReelShort top row 
+Move Aside! I'm the Final Boss, 476M; The Reckoning Takes Flight, 189M; Cooking My Way Back to Love, 132M; Never Reject A Wolf Princess, 96M; Slay to Fosters: I Took His Uncle, 24M; Bound by Hatred, 17M.
+
+2.3 Ad-exposure leaders
+Wrong Jacket Right Girl (DramaShorts); Revenge Puck and Poisoned by His Love (DramaBox); False Weakling True Power (NetShort). The Great and Powerful Genie, one of the reference titles in the project plan, is still actively advertised
+2.4 Observations
+- Dominant genres: hidden identity and hidden billionaire, revenge and regret, forbidden romance, secret children, werewolf-alpha pairings, mafia, and ugly-duckling reveals.
+- Every top title states its central fantasy in the title itself.
+- DramaBox accounts for 7 of the 10 most-watched titles. India-facing free apps (QuickTV, KukuTV) run the same formulas in Hindi.
+- Limitation: these charts measure plays and ad exposure, not script quality. They show what the market rewards, not why the writing works.
+
+3. FORMAT REFERENCE POINTS
+- Episode length: about 60 to 90 seconds (Deloitte's description of the format: "60- to 90-second serialized episodes loaded with plot twists and cliffhangers"). Platforms run 1 to 3 minutes.
+- Series length: 60 to 100 episodes per series (Screenburn). Planning sources cite 50 to 100 or more.
+- Macro-structure: 3 to 5 major arcs per series, each 15 to 25 episodes, each ending in a turning point that resets the dramatic landscape (Screenburn).
+- The project's planned first series (50 episodes of 64 seconds) sits within these norms.
+
+4. EPISODE STRUCTURE
+Four independent practitioner sources agree on one skeleton. Timings below are for an episode of about 60 seconds.
+
+a) Hook within the first 3 seconds. A visible problem or pattern interrupt, not a mood or preamble. CineVert: "If your hook requires two sentences of explanation, it's too slow." Screenweaver: "a key that won't turn, not a mood."
+
+b) Four beats of about 15 seconds each.
+ - CineVert timings: 0 to 3 s hook; 3 to 20 s question; 20 to 45 s turn; 45 to 60 s cliffhanger.
+ - Versely's refinement: Beat 1 resolves the previous episode's cliffhanger mid-consequence (open with the door already opening, never a recap). Beat 2 introduces one new complication. Beat 3 escalates and is the longest beat. Beat 4 cuts before the consequence lands.
+
+c) One turn per episode. A 60-second episode has room for exactly one change; everything before builds the question and everything after makes it worse (Screenweaver).
+
+d) End on an unanswered question or cut on a reaction. CineVert: "If the episode feels complete, your retention collapses. End before closure." Working mechanics: new information in the last second, time pressure, and a cut on a face or gasp before the explanation.
+
+e) Short lines and close-ups. Dialogue rarely exceeds about 8 words per line. Scenes run about 15 seconds. Writing is for close-ups, since a face fills the vertical screen (Screenweaver).
+
+f) Plan a hook map before scripting. A table of episode, hook, question, turn and cliffhanger for every episode comes first and scripts second (CineVert). The discipline is that each hook must continue the previous episode's cliffhanger.
+
+g) Ten-episode arc template (CineVert). Episodes 1 to 3: setup and first betrayal, with a twist at episode 3. Episodes 4 to 7: escalation, with the truth revealed at episode 7. Episodes 8 and 9: collapse, with maximum tension at episode 9. Episode 10: payoff, with an optional new loop.
+
+5. GAP ANALYSIS: WHAT THE CURRENT EVALUATOR DOES NOT SCORE
+The evaluator measures character consistency, voice, tone, secrets and timeline. This yardstick adds seven criteria that are not yet scored:
+ 1. Hook within 3 seconds: does the first shot or line present a visible problem?
+ 2. Hook continuity: does the hook open mid-consequence of the previous episode's cliffhanger? This corresponds to the timeline drift the evaluator found in an earlier series (episodes 4, 5 and 8).
+ 3. One-turn discipline: exactly one major change per episode.
+ 4. Cliffhanger cut: does the episode end before the consequence lands, on a question, reveal or reaction?
+ 5. Line length: the market norm is about 8 words; the project's limit is 13 to 14. This warrants an A/B comparison.
+ 6. Title and premise promise: top titles state the fantasy outright.
+ 7. Arc shape: does the 10-episode run place a twist near episode 3, the truth near episode 7, and maximum tension at episodes 9 and 10?
+
+6. PRELIMINARY ASSESSMENT: "SECOND PERIOD" EPISODES 1 TO 10 AGAINST THE YARDSTICK
+This check used the hook map in the canon planning file, not the final scripts.
+- Cliffhanger quality is strong. All 10 episodes end on an unresolved question, reveal or cut, which matches rule (d).
+- Hook continuity fails on most transitions. Only episode 7 (continues the contract from episode 6), episode 8 (the voice memo plays, continuing episode 7) and episode 10 (sings after the sound cut in episode 9) open mid-consequence. Episodes 2, 3, 4, 5 and 9 open new scenes and leave the previous cliffhanger unresolved. For example, the vending-machine note in episode 3 is not picked up by the hook of episode 4, and episode 8 ends on a character hurt while episode 9 opens at the talent show. The same drift appeared in an earlier series, so it is a systematic pattern in the writing process.
+- One-turn discipline appears largely intact at canon level, with one reversal per episode.
+- Arc shape roughly matches the template: escalation at episode 4, the truth about the cut and the contract at episodes 6 and 7, maximum tension at episode 9, and payoff at episode 10.
+Conclusion: the canon is sound on cliffhangers and arc shape and weak on hook-to-cliffhanger continuity. The regeneration pass built for the earlier series should also run on this canon before rendering.
+
+7. PROPOSED INTEGRATION INTO THE PIPELINE
+- Mechanical checks: hook present in the first shot; overlap between the hook and the previous cliffhanger; a heuristic that the cliffhanger is unresolved; a one-turn check that counts state changes.
+- Evaluator criteria: hook strength, turn singularity and cliffhanger cut quality, each scored 0 to 100 with quoted evidence, with quotes verified against the script.
+- Keep the current internal-consistency dimensions. Reports should show two halves: "consistent with itself" (current evaluator) and "built like a hit" (this checklist).
+- Longer term, build Dataset D1: deconstruct 20 to 50 lawfully viewable episodes, starting with the five reference titles, into hook, turn and cliffhanger records. Notes only, no scraping and no copied text.
+
+8. SOURCES
+- Owl & Co Vertical Index top 10, via The Hollywood Reporter, week of October 5 to 11, 2026, read at https://www.verticaldrama.tv/top/. Also the ReelShort top row and Short Drama Data ad-exposure lists.
+- Screenburn, "Microdrama Structure": https://screenburn.app/learn/microdrama-structure
+- CineVert Studios, "Vertical Drama Script Structure - Hooks, Cliffhangers, and the Hook Map": https://cinevertstudios.com/vertical-drama-script-structure.html
+- Screenweaver Academy, "How to Write Vertical Short Drama Episodes: 5 Rules": https://www.screenweaver.ai/academy/courses/screenwriting-course/how-to-write-vertical-short-drama
+- Versely, "Beat Sheet for a Vertical Micro-Drama" (August 19, 2026): https://www.versely.studio/blog/beat-sheet-for-a-vertical-micro-drama
+- Project plan (October 8, 2026): Section 8 market data, Section 8.7 Dataset D1 proposal, Section 10 benchmark design.
+
+Source grades: the charts are platform and advertising data (grade B). The practitioner guides are craft sources (grade C); they agree with each other and with the project plan, but their exact timings should be treated as rules of thumb, not measured facts. No public per-second retention data exists.

@@ -1,0 +1,12 @@
+.env
+.env.*
+__pycache__/
+.pytest_cache/
+*.pyc
+output/
+refs/
+assets.json
+jobs.json
+*ledger*.jsonl
+*spend*.jsonl
+*.log

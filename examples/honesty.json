@@ -1,0 +1,74 @@
+{
+  "output_dir": "../output",
+  "scripts": [
+    "../scripts/honesty/ep01.json",
+    "../scripts/honesty/ep02.json",
+    "../scripts/honesty/ep03.json",
+    "../scripts/honesty/ep04.json",
+    "../scripts/honesty/ep05.json",
+    "../scripts/honesty/ep06.json",
+    "../scripts/honesty/ep07.json",
+    "../scripts/honesty/ep08.json",
+    "../scripts/honesty/ep09.json",
+    "../scripts/honesty/ep10.json"
+  ],
+  "api_base": "https://api.magichour.ai",
+  "api_key_env": "MAGICHOUR_KEY",
+  "image_model": "nano-banana-2.1",
+  "video_model": "minimax-h3",
+  "resolution": "720p",
+  "padding_seconds": 2,
+  "quote": {
+    "image_credits": 50,
+    "video_credits_per_second": 48,
+    "verified_at": null
+  },
+  "batch_cap_credits": 25000,
+  "episode_cap_credits": 10000,
+  "poll_interval_seconds": 10,
+  "poll_timeout_seconds": 1500,
+  "style": "Photoreal cinematic still, present-day Mumbai advertising agency Meridian, natural skin tones, grounded lighting, 9:16 vertical.",
+  "characters": {
+    "Anu": {
+      "reference": "../refs/char_anu_rao.png",
+      "wardrobe": "Mustard kurti, navy blazer ON, canvas tote. Same clothes as reference."
+    },
+    "Vikram": {
+      "reference": "../refs/char_vikram_sethi.png",
+      "wardrobe": "Same suit and glasses as reference."
+    },
+    "Priya": {
+      "reference": "../refs/char_priya_nair.png",
+      "wardrobe": "Same clothes as reference."
+    },
+    "Arjun": {
+      "reference": "../refs/char_arjun_malhotra.png",
+      "wardrobe": "Same dark casual shirt and lanyard as reference."
+    }
+  },
+  "locations": {
+    "lobby": "../refs/loc_lobby.png",
+    "elevator": "../refs/loc_elevator.png",
+    "floor": "../refs/loc_office_floor.png",
+    "cabin": "../refs/loc_cabin.png",
+    "stairwell": "../refs/loc_stairwell.png",
+    "chai": "../refs/loc_chai_stall.png",
+    "pantry": "../refs/loc_pantry.png",
+    "corridor": "../refs/loc_office_floor.png"
+  },
+  "scene_overrides": {},
+  "transcribers": [],
+  "transcript_min_similarity": 0.85,
+  "transcription_example": [
+    [
+      "python",
+      "transcribe_primary.py",
+      "{audio}"
+    ],
+    [
+      "python",
+      "transcribe_independent.py",
+      "{audio}"
+    ]
+  ]
+}
