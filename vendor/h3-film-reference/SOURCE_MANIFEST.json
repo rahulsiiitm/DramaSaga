@@ -1,0 +1,37 @@
+{
+  "source": "Supplied h3-film-main.zip",
+  "upstream": "https://github.com/li-yunshen-alec/h3-film",
+  "commit_verified": false,
+  "files": [
+    {
+      "path": "research/h3/soundtrack.mjs",
+      "sha256": "ea609c9f84b0dbfff3fb0d7eb4db4badee93a087a7406928e56458dd46ce17aa",
+      "bytes": 41919
+    },
+    {
+      "path": "agent/h3film/join.mjs",
+      "sha256": "68cb16b72374f33735f05ded789c68944920009f4bfbf6faa673dd0ef924832c",
+      "bytes": 8938
+    },
+    {
+      "path": "agent/h3film/check-prompt.mjs",
+      "sha256": "bda7f48d5e694cc00f68e8c0bc73bfd21c68e053ef169120cb7a8e0cc997d7e4",
+      "bytes": 2115
+    },
+    {
+      "path": "research/h3/tools-film.mjs",
+      "sha256": "c3622c146d020541f75a725dfec895248481957d2f4717c09e5912fcf123b376",
+      "bytes": 47667
+    },
+    {
+      "path": "research/h3/runpod/comfy_r2v.py",
+      "sha256": "3587ca8a94d95f0e7c9a06045518d93130b77a202e1bacd9c784ef244bfd537e",
+      "bytes": 14225
+    },
+    {
+      "path": "agent/h3film/render-all.mjs",
+      "sha256": "2a55fe1b77192530a90683b03b21aa013946b17e99a90ae7c50367d1bf1c4d67",
+      "bytes": 37665
+    }
+  ]
+}

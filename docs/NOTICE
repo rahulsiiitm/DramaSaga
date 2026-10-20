@@ -1,0 +1,34 @@
+Attributions for ported material (all ports are for local use)
+
+1. Dramake - github.com/xixihhhh/ai-short-drama-skill - MIT License (c) 2026 Dramake contributors.
+   Ledger CSV schemas in magicdrama/ledgers.py and data flow in governor.py follow its templates.
+
+2. wind-comic - github.com/ChrisChen667788/wind-comic - MIT License (c) 2026 ChrisChen667788.
+   QA scoring dimensions and writer fix-hint rules in magicdrama/stages/qa.py adapted from lib/quality-scores.ts.
+
+3. ViMax - github.com/HKUDS/ViMax - MIT License (c) 2025 HKUDS.
+   Candidate-selection judge structure in magicdrama/stages/select.py adapted from agents/best_image_selector.py.
+
+4. OpenMontage - github.com/calesthio/OpenMontage - GNU AGPL v3.
+   PriceQuoteRequired concept in magicdrama/governor.py adapted from tools/provider_pricing.py.
+   AGPL-DERIVED, LOCAL USE ONLY: do not publish, deploy, or offer as a network service.
+
+
+5. Audio-first design research
+   The new Python audio-first layer is written separately, with no copied upstream modules.
+   The privately supplied h3-film source informed the soundtrack/timing/reference-plan design.
+   Six reference files with sanitized nonfunctional comments are isolated under vendor/h3-film-reference with SHA-256 hashes.
+   Source identifies https://github.com/li-yunshen-alec/h3-film; commit identity is unverified.
+   No root source-code license was found; no public redistribution license is asserted.
+   This archive does not establish permission to share or use private source.
+
+6. img2threejs - https://github.com/img2threejs/img2threejs
+   The procedural Three.js handoff follows its documented assess/build/render/review workflow.
+   No upstream implementation is bundled or executed. The handoff is not a trained image-to-mesh
+   model or a completed 3D reconstruction.
+
+7. h3-film private join integration, 2026-10-20
+   This archive does not establish source-use permission. The h3_wrapper.py
+   invokes the sanitized hash-pinned join.mjs for local assembly only, with our own captions.
+   No public license/redistribution right is asserted. The vendor modules are references with nonfunctional personal comments sanitized. Permission for source code does not clear MiniMax H3 model weights;
+   model execution remains blocked. No paid GPU or external renderer was run.

@@ -10,3 +10,10 @@ jobs.json
 *ledger*.jsonl
 *spend*.jsonl
 *.log
+
+.venv/
+models/
+ComfyUI/
+*.safetensors
+*.task
+*.bin

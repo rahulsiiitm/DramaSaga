@@ -4,8 +4,8 @@ sys.path.insert(0, str(pathlib.Path(__file__).parent))
 from magicdrama import config
 from magicdrama.stages import series_v2 as v2
 
-BIBLE_PATH = os.environ.get("V2_BIBLE", "/tmp/v3/honesty_intern_bible.json")
-OUT = pathlib.Path(os.environ.get("V2_WORKDIR", "/tmp/v3/honesty_run"))
+BIBLE_PATH = os.environ.get("V2_BIBLE", "output/legacy/honesty_intern_bible.json")
+OUT = pathlib.Path(os.environ.get("V2_WORKDIR", "output/legacy/honesty_run"))
 DRAFTS = int(os.environ.get("V2_DRAFTS", "2"))
 EPS = int(os.environ.get("V2_EPS", "10"))
 

@@ -1,0 +1,16 @@
+{
+  "seconds": 5,
+  "width": 480,
+  "height": 864,
+  "audio_asset": "dialogue.wav",
+  "prompt": "<Picture 1>: actor keeps the same clothes. Describe the exact approved action.",
+  "references": [
+    "actor.png"
+  ],
+  "pins": [
+    {
+      "seconds": 0,
+      "asset": "actor.png"
+    }
+  ]
+}

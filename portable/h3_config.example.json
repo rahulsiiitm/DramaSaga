@@ -1,0 +1,12 @@
+{
+  "enabled": false,
+  "url": "http://127.0.0.1:8188",
+  "free_local_compute": false,
+  "owner_approval_reference": "",
+  "model_license_reference": "",
+  "model_files": [],
+  "approved_workflow_sha256": "",
+  "runtime_output_root": "ComfyUI/output",
+  "already_provisioned_compute": false,
+  "compute_approval_reference": ""
+}

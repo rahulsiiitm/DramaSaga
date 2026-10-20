@@ -1,0 +1,50 @@
+{
+  "sources_checked": "2026-10-20",
+  "comfy_repo": "https://github.com/comfyanonymous/ComfyUI",
+  "comfy_commit": "fd734e958c68d96f310cafbc2ca609567dd1daf2",
+  "template_repo": "https://github.com/Comfy-Org/workflow_templates",
+  "template_commit": "46e060ea88eb07adecf07197ec384c54a70e030c",
+  "models": {
+    "asr": {
+      "repo": "Systran/faster-whisper-tiny.en",
+      "revision": "0d3d19a32d3338f10357c0889762bd8d64bbdeba",
+      "license": "mit",
+      "allow_patterns": [
+        "config.json",
+        "model.bin",
+        "tokenizer.json",
+        "vocabulary.txt",
+        "README.md"
+      ]
+    },
+    "vision": {
+      "repo": "HuggingFaceTB/SmolVLM-256M-Instruct",
+      "revision": "7e3e67edbbed1bf9888184d9df282b700a323964",
+      "license": "apache-2.0",
+      "allow_patterns": [
+        "*.json",
+        "*.txt",
+        "*.safetensors",
+        "*.md"
+      ]
+    },
+    "h3": {
+      "repo": "Comfy-Org/MiniMax-H3",
+      "revision": "e5eb578a89295337b8ff433a035929ce0279e0b6",
+      "license": "MiniMax H3 community license; see H3_LICENSE.txt",
+      "allow_patterns": [
+        "diffusion_models/minimax_h3_ref2va_pruned_int8_convrot.safetensors",
+        "text_encoders/qwen3vl_32b_minimax_h3_bf16.safetensors",
+        "vae/minimax_h3_video_vae_int8_convrot.safetensors",
+        "vae/minimax_h3_audio_vae_fp32.safetensors",
+        "README.md",
+        "LICENSE*"
+      ]
+    }
+  },
+  "face": {
+    "url": "https://storage.googleapis.com/mediapipe-models/face_landmarker/face_landmarker/float16/1/face_landmarker.task",
+    "sha256": "64184e229b263107bc2b804c6625db1341ff2bb731874b0bcc2fe6544e0bc9ff",
+    "license": "Apache-2.0; see official MediaPipe model page"
+  }
+}

@@ -1,2 +1,7 @@
+faster-whisper==1.2.1
+mediapipe==1.1.1
+transformers==5.20.2
+huggingface-hub==2.2.0
 requests
 
+Pillow
