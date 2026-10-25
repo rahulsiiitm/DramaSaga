@@ -1,0 +1,769 @@
+{
+  "schema_version": 2,
+  "series_id": "the_last_envelope",
+  "season": 1,
+  "facts": [
+    {
+      "id": "grant_approved",
+      "text": "Mira grant was approved yesterday; Dev received and concealed the letter."
+    }
+  ],
+  "episodes": [
+    {
+      "id": "ep1",
+      "title": "The Last Envelope",
+      "draft_seconds": 45,
+      "setup": "Mira comes for her certificates before leaving.",
+      "turn": "Dev admits that her grant was approved and gives her the key.",
+      "cliffhanger": "Mira has her choice back; will she leave without forgiving him?",
+      "lines": [
+        {
+          "id": "ep1line1",
+          "speaker": "mira",
+          "text": "The bus leaves at six. I need my certificates.",
+          "performance": "firm, avoiding an argument"
+        },
+        {
+          "id": "ep1line2",
+          "speaker": "mira",
+          "text": "Why is my name on that envelope?",
+          "performance": "quiet suspicion"
+        },
+        {
+          "id": "ep1line3",
+          "speaker": "dev",
+          "text": "They approved it yesterday. I could not make myself tell you.",
+          "performance": "ashamed, direct"
+        },
+        {
+          "id": "ep1line4",
+          "speaker": "mira",
+          "text": "You let me think I failed. Give me the key.",
+          "performance": "hurt, controlled"
+        },
+        {
+          "id": "ep1line5",
+          "speaker": "dev",
+          "text": "I thought you would stay if you had no reason to go.",
+          "performance": "fragile admission"
+        },
+        {
+          "id": "ep1line6",
+          "speaker": "mira",
+          "text": "Ask me to stay. Do not take away the choice.",
+          "performance": "quiet, refusing easy forgiveness"
+        }
+      ],
+      "shots": [
+        {
+          "id": "ep1shot1",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat1",
+          "line_ids": [
+            "ep1line1"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Static medium two-shot, camera south of desk.",
+          "action": "Mira enters from the west doorway and stops at the west edge of the desk. Dev remains seated holding the envelope and key.",
+          "narrative_purpose": "Establish her plan to leave and the physical geography.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west doorway",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "determined"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "guarded"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "dev",
+                "hand": "left",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "determined"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "guarded"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "dev",
+                "hand": "left",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "characters.mira.position",
+              "from": "west doorway",
+              "to": "west edge of desk",
+              "reason": "Mira walks from doorway to desk"
+            }
+          ],
+          "reveals": []
+        },
+        {
+          "id": "ep1shot2",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat2",
+          "line_ids": [
+            "ep1line2"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Over Mira shoulder toward Dev, same south camera axis.",
+          "action": "Dev offers the sealed envelope with his left hand. Mira takes it in her right hand and looks at the name. The key stays in his right hand.",
+          "narrative_purpose": "Make the hidden letter a concrete obstacle.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "determined"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "guarded"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "dev",
+                "hand": "left",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "suspicious"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "guarded"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "props.envelope.owner",
+              "from": "dev",
+              "to": "mira",
+              "reason": "Visible handoff from Dev to Mira"
+            },
+            {
+              "field": "props.envelope.hand",
+              "from": "left",
+              "to": "right",
+              "reason": "Mira takes envelope with her right hand"
+            },
+            {
+              "field": "characters.mira.emotion",
+              "from": "determined",
+              "to": "suspicious",
+              "reason": "She notices her name on the envelope"
+            }
+          ],
+          "reveals": []
+        },
+        {
+          "id": "ep1shot3",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat3",
+          "line_ids": [
+            "ep1line3"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Close-up Dev, Mira shoulder at left frame edge.",
+          "action": "Dev looks at the letter in Mira right hand, then meets her eyes. He remains seated and holds the key in his right hand.",
+          "narrative_purpose": "Reveal his betrayal through an admission rather than exposition.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "suspicious"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "guarded"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "suspicious"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "ashamed"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "characters.dev.emotion",
+              "from": "guarded",
+              "to": "ashamed",
+              "reason": "Dev admits he concealed the approval"
+            },
+            {
+              "field": "knowledge.mira",
+              "from": [],
+              "to": [
+                "grant_approved"
+              ],
+              "reason": "Mira hears Dev admit the approval"
+            }
+          ],
+          "reveals": [
+            {
+              "fact_id": "grant_approved",
+              "line_id": "ep1line3",
+              "learned_by": [
+                "mira"
+              ]
+            }
+          ]
+        },
+        {
+          "id": "ep1shot4",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat4",
+          "line_ids": [
+            "ep1line4"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Medium two-shot, hands and faces visible from south.",
+          "action": "Mira holds out her empty left hand. Dev places the brass key from his right hand into her left. The envelope remains in her right hand.",
+          "narrative_purpose": "Turn confrontation into an irreversible physical choice.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "suspicious"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "ashamed"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "dev",
+                "hand": "right",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "hurt"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "ashamed"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "mira",
+                "hand": "left",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "props.key.owner",
+              "from": "dev",
+              "to": "mira",
+              "reason": "Dev hands the key to Mira"
+            },
+            {
+              "field": "props.key.hand",
+              "from": "right",
+              "to": "left",
+              "reason": "Mira receives key in her left hand"
+            },
+            {
+              "field": "characters.mira.emotion",
+              "from": "suspicious",
+              "to": "hurt",
+              "reason": "The concealed approval changes what she thinks of him"
+            }
+          ],
+          "reveals": []
+        },
+        {
+          "id": "ep1shot5",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat5",
+          "line_ids": [
+            "ep1line5"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Close-up Dev from south, Mira shoulder at frame left.",
+          "action": "Dev admits his fear without reaching for Mira. She holds the envelope right and key left.",
+          "narrative_purpose": "End with a changed relationship and a meaningful unresolved choice.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "hurt"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "ashamed"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "mira",
+                "hand": "left",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "hurt"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "vulnerable"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "mira",
+                "hand": "left",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "characters.dev.emotion",
+              "from": "ashamed",
+              "to": "vulnerable",
+              "reason": "He admits fear of being left alone"
+            }
+          ],
+          "reveals": []
+        },
+        {
+          "id": "ep1shot6",
+          "scene_id": "study_afternoon",
+          "beat_id": "beat6",
+          "line_ids": [
+            "ep1line6"
+          ],
+          "location": "study",
+          "location_description": "Small study with desk east, door west, two chairs south, window north.",
+          "visible_characters": [
+            "mira",
+            "dev"
+          ],
+          "camera": "Close-up Mira from south, Dev shoulder at frame right.",
+          "action": "Mira replies, then looks toward the west doorway. The envelope remains right and the key left.",
+          "narrative_purpose": "Restore her agency without pretending the betrayal is forgiven.",
+          "wardrobe": "Mira blue shirt and canvas bag; Dev grey rolled-sleeve shirt.",
+          "props": [
+            "grant envelope",
+            "brass key"
+          ],
+          "recurring_props": [
+            {
+              "id": "envelope",
+              "description": "grant envelope"
+            },
+            {
+              "id": "key",
+              "description": "brass key"
+            }
+          ],
+          "start_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "east toward Dev",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "hurt"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "vulnerable"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "mira",
+                "hand": "left",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "end_state": {
+            "characters": {
+              "mira": {
+                "position": "west edge of desk",
+                "facing": "west toward doorway",
+                "wardrobe": "blue shirt and canvas bag",
+                "emotion": "hurt"
+              },
+              "dev": {
+                "position": "south desk chair",
+                "facing": "west toward Mira",
+                "wardrobe": "grey rolled-sleeve shirt",
+                "emotion": "vulnerable"
+              }
+            },
+            "props": {
+              "envelope": {
+                "owner": "mira",
+                "hand": "right",
+                "status": "sealed grant letter"
+              },
+              "key": {
+                "owner": "mira",
+                "hand": "left",
+                "status": "brass desk-drawer key"
+              }
+            },
+            "knowledge": {
+              "mira": [
+                "grant_approved"
+              ],
+              "dev": [
+                "grant_approved"
+              ]
+            }
+          },
+          "changes": [
+            {
+              "field": "characters.mira.facing",
+              "from": "east toward Dev",
+              "to": "west toward doorway",
+              "reason": "Mira considers leaving after replying"
+            }
+          ],
+          "reveals": []
+        }
+      ]
+    }
+  ]
+}

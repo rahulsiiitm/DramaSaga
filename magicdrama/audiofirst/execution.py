@@ -32,6 +32,13 @@ def verify_approval(manifest, token, enabled=False, now=None):
         raise ValueError('Exact approved manifest hash and source evidence required')
     jobs=manifest['jobs']; ids=[j['id'] for j in jobs]
     if len(set(ids))!=len(ids): raise ValueError('Duplicate job ID')
+    unresolved={j['id']:set(j.get('depends_on',[])) for j in jobs}
+    resolved=set()
+    while unresolved:
+        ready={key for key,deps in unresolved.items() if deps<=resolved}
+        if not ready:raise ValueError('Cyclic or missing job dependency')
+        resolved.update(ready)
+        unresolved={key:deps for key,deps in unresolved.items() if key not in ready}
     totals={};counts={};episodes={};image_counts={}
     for j in jobs:
         identifier(j['id'],'job id');identifier(j['episode_id'],'episode id')

@@ -53,7 +53,7 @@ def caption_file(cues,names,duration,path):
     Path(path).write_text('\n'.join(rows)+'\n');Path(path).with_suffix('.srt').write_text('\n'.join(srt))
 
 
-def assemble_episode(spec,output,backend='own',size=(540,960)):
+def assemble_episode(spec,output,backend='own',size=(540,960),cache_dir=None):
     output=Path(output)
     if output.exists():raise ValueError('Fresh episode output directory required')
     master=checked(spec['audio']);duration=measure_audio(master)
@@ -69,7 +69,8 @@ def assemble_episode(spec,output,backend='own',size=(540,960)):
     for shot in spec['shots']:
         frames=integer(shot['frames'],'frames',1,4320);path=checked(shot)
         if shot.get('pixel_checked') is not True:raise ValueError('Shot pixels not checked')
-        validated.append((path,frames,shot['kind']));cursor+=frames
+        offset=integer(shot.get('source_start_frame',0),'source_start_frame',0,24*180)
+        validated.append((path,frames,shot['kind'],offset));cursor+=frames
     if cursor!=total:raise ValueError('Shot frames must cover measured audio exactly')
     w,h=size
     if w/h!=9/16 or any(type(x) is not int or x<100 or x%2 for x in size):raise ValueError('Even portrait 9:16 output dimensions required')
@@ -79,12 +80,28 @@ def assemble_episode(spec,output,backend='own',size=(540,960)):
         gain=finite(a.get('gain',.1),'gain')
         if gain>1:raise ValueError('Soundtrack gain exceeds conservative maximum')
     output.mkdir(parents=True);clips=[]
-    for i,(path,frames,kind) in enumerate(validated):
+    for i,(path,frames,kind,offset) in enumerate(validated):
         clip=output/f'shot-{i:04}.mp4'
         args=['-loop','1','-i',path] if kind=='image' else ['-i',path] if kind=='video' else None
         if args is None:raise ValueError('Shot must be image or video')
-        if kind=='video' and measure_audio(path)+1/fps<frames/fps:raise ValueError('Video is shorter than planned; do not freeze silently')
-        ff(args+['-vf',f'scale={w}:{h}:force_original_aspect_ratio=decrease,pad={w}:{h}:(ow-iw)/2:(oh-ih)/2,fps=24,setsar=1','-frames:v',frames,'-an','-c:v','libx264','-pix_fmt','yuv420p',clip]);clips.append(clip)
+        if kind=='video' and measure_audio(path)+1/fps<(offset+frames)/fps:raise ValueError('Video is shorter than planned; do not freeze silently')
+        def conform(destination):
+            ff(args+['-vf',f'fps=24,trim=start_frame={offset}:end_frame={offset+frames},setpts=PTS-STARTPTS,scale={w}:{h}:force_original_aspect_ratio=decrease,pad={w}:{h}:(ow-iw)/2:(oh-ih)/2,setsar=1','-frames:v',frames,'-an','-c:v','libx264','-pix_fmt','yuv420p',destination])
+        if cache_dir is None:
+            conform(clip)
+        else:
+            from .execution import signature
+            from .workflow import StageStore
+            cache=Path(cache_dir);cache.mkdir(parents=True,exist_ok=True)
+            inputs={'sha256':digest(path),'frames':frames,'offset':offset,'kind':kind,'size':size,'encoder':'libx264-yuv420p-24fps-v2'}
+            cached=cache/(signature(inputs)+'.mp4')
+            def encode():
+                conform(cached)
+                return {'path':str(cached.resolve()),'artifacts':[{'path':str(cached.resolve()),'sha256':digest(cached)}]}
+            with StageStore(cache/'conform.sqlite') as store:
+                receipt=store.run('conform',inputs,encode)
+            shutil.copyfile(receipt['path'],clip)
+        clips.append(clip)
     mixed=output/'master.wav'
     if soundtrack:
         args=['-i',master];filters=['[0:a]aresample=48000,aformat=channel_layouts=stereo[a0]'];labels=['[a0]']
@@ -98,9 +115,9 @@ def assemble_episode(spec,output,backend='own',size=(540,960)):
     if backend=='own':
         (output/'concat.txt').write_text(''.join("file '"+c.name+"'\n" for c in clips))
         ff(['-f','concat','-safe','1','-i',output/'concat.txt','-i',mixed,'-map','0:v:0','-map','1:a:0','-c:v','copy','-c:a','aac','-t',duration,clean])
-    elif backend=='alec':
+    elif backend in ('h3_join','alec'):
         from .h3_wrapper import join_with_alec
-        join_with_alec(clips,[f/fps for _,f,_ in validated],mixed,clean,size)
+        join_with_alec(clips,[f/fps for _,f,_,_ in validated],mixed,clean,size)
     else:raise ValueError('Unknown assembly backend')
     caption_file(cues,spec['names'],duration,output/'captions.ass')
     final=output/'captioned.mp4'
@@ -114,7 +131,9 @@ def assemble_episode(spec,output,backend='own',size=(540,960)):
     write_json(output/'assembly.json',result);return result
 
 
-def assemble_season(spec,output,backend='own'):
+def assemble_season(spec,output,backend='own',resume=False):
+    if resume:
+        return _resumable_season(spec,output,backend)
     root=Path(output)
     if root.exists():raise ValueError('Fresh season output directory required')
     root.mkdir(parents=True)
@@ -126,3 +145,58 @@ def assemble_season(spec,output,backend='own'):
     archive=root.parent/(root.name+'.zip')
     manifest=pack_season(root,archive,spec['series_id'],spec['season'],canon)
     return {'episodes':results,'archive':str(archive.resolve()),'archive_sha256':digest(archive),'status':'preview_season_archive_not_final_approved','paid_requests':0}
+
+
+def _resumable_season(spec,output,backend):
+    """Immutable versions, per-shot conformance cache, current-cut-only ZIP exports."""
+    from .execution import signature
+    from .workflow import StageStore
+    root=Path(output);state=root.with_name(root.name+'-state')
+    marker=state/'assembly-owner.json'
+    owner={'output':str(root.resolve()),'series_id':spec['series_id'],'season':spec['season']}
+    if marker.exists():
+        if json.loads(marker.read_text(encoding='utf-8'))!=owner:raise ValueError('Assembly output belongs to another season')
+    elif root.exists() and any(root.iterdir()):
+        raise ValueError('Cannot resume an unrelated output directory')
+    state.mkdir(parents=True,exist_ok=True);write_json(marker,owner)
+    root.mkdir(parents=True,exist_ok=True)
+    def fresh(parent):
+        parent.mkdir(parents=True,exist_ok=True)
+        n=1
+        while (parent/str(n)).exists():n+=1
+        return parent/str(n)
+    results=[]
+    with StageStore(state/'assembly.sqlite') as store:
+        seen=set()
+        for ep in spec['episodes']:
+            eid=identifier(ep['id'],'episode id')
+            if eid in seen:raise ValueError('Duplicate episode id')
+            seen.add(eid)
+            for asset in [ep['audio'],*ep['shots'],*ep.get('soundtrack',[])]:checked(asset)
+            for asset in ep.get('soundtrack',[]):validate_free_audio_asset(asset)
+            inputs={'episode':ep,'backend':backend,'assembly_version':2}
+            def assemble(ep=ep,eid=eid,inputs=inputs):
+                destination=fresh(state/'episodes'/eid/signature(inputs))
+                result=assemble_episode(ep,destination,backend,cache_dir=state/'conformed')
+                result['directory']=str(destination.resolve())
+                result['artifacts']=[{'path':str(p.resolve()),'sha256':digest(p)} for p in sorted(destination.iterdir()) if p.is_file()]
+                return result
+            results.append(store.run('episode-'+eid,inputs,assemble))
+        export_inputs={'episodes':results,'canon':spec['canon'],'owner':owner}
+        def export():
+            destination=fresh(root/('cut-'+signature(export_inputs)[:16]))
+            destination.mkdir(parents=True)
+            exported=[]
+            for ep,result in zip(spec['episodes'],results):
+                target=destination/ep['id'];shutil.copytree(result['directory'],target)
+                current={**result,'path':str((target/'captioned.mp4').resolve()),'clean_path':str((target/'clean.mp4').resolve())}
+                current.pop('artifacts',None);current.pop('directory',None)
+                exported.append(current)
+            write_json(destination/'results.json',exported)
+            archive=destination.with_suffix('.zip')
+            pack_season(destination,archive,spec['series_id'],spec['season'],spec['canon'])
+            return {'episodes':exported,'archive':str(archive.resolve()),'archive_sha256':digest(archive),
+                    'status':'preview_season_archive_not_final_approved','paid_requests':0,
+                    'artifacts':[{'path':str(p.resolve()),'sha256':digest(p)} for p in sorted(destination.rglob('*')) if p.is_file()]+[{'path':str(archive.resolve()),'sha256':digest(archive)}]}
+        result=store.run('export',export_inputs,export)
+        return {**result,'stages':store.report()}

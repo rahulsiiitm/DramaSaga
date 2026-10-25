@@ -57,8 +57,10 @@ def main():
             try:
                 gate = v2.continuity_gate(concept, priors, s, v2.memory_slice(memory))
             except Exception as gx:
-                gate = {"ok": True, "clashes": [], "gate_error": str(gx)}
-                log(f"E{ep} gate error (proceeding, flagged): {gx}")
+                gate = {"ok": False, "clashes": [], "gate_error": str(gx)}
+                save(f"ep{ep:02d}.gate.json", gate)
+                log(f"E{ep} continuity check unavailable; run stopped: {gx}")
+                return
             if not gate.get("ok"):
                 log(f"E{ep} continuity clash x{len(gate.get('clashes', []))} - regenerating once")
                 save(f"ep{ep:02d}.clash1.json", gate)

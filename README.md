@@ -1,5 +1,26 @@
 # MicroDrama
 
+## Story-first pilot workflow
+
+The upgraded audio-first path supports a single-episode pilot, staged writing,
+explicit cut continuity, a local storyboard player, measured render plans and
+resumable accepted-media assembly. Start here for new projects:
+
+```sh
+python audiofirst.py run --brief examples/pilot/brief.json --story examples/pilot/story.json --out output/my-pilot
+python -m unittest discover -s tests -v
+```
+
+Open the `storyboard_preview` path printed by the run. The supplied pilot is an
+original script and continuity example; no character images, voices or generated
+film are bundled. Missing images are displayed explicitly. For generation with an
+already installed local writer, replace `--story ...` with `--local-model MODEL`.
+
+See [the complete workflow](docs/STORY_PIPELINE.md) for reference uploads, staged
+cloud writing, measured audio, renderer capabilities, request manifests, repairs,
+season continuation and the limits of current verification. The commands below
+describe the older supervised scene runner and remain supported.
+
 ## Install and plan
 
 Python 3.10+ and ffmpeg/ffprobe are required for rendering and QA. Install ffmpeg through your operating system's package manager.

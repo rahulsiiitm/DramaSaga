@@ -3,6 +3,7 @@
 Never import legacy retry clients. Inputs/outputs are scoped to approved manifest.
 """
 import base64
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -18,6 +19,8 @@ CREATE={'image':{'/v1/ai-image-generator','/v1/ai-image-editor'},'video':{'/v1/a
 
 def validate_job(job):
     req=job['request'];endpoint=req['endpoint'];body=req['body']
+    if job.get('render_binding') and job['render_binding'].get('request_sha256')!=signature(req):
+        raise ValueError('Provider request differs from compiled render binding')
     if job['provider']=='magichour':
         if endpoint not in CREATE.get(job['kind'],set()):raise ValueError('Unapproved endpoint')
         if job['kind']=='image':
@@ -114,7 +117,8 @@ class LiveAdapters:
             raw=base64.b64decode(data['audio_base64'],validate=True)
             actual=money(job['quote']['amount'])  # submitted text count, NOT a billed-credit claim
         output=Path(output)
-        if output.exists():raise ValueError('Output already exists; recover submitted result explicitly')
+        if output.exists() and digest(output)!=hashlib.sha256(raw).hexdigest():
+            raise ValueError('Output already exists with different bytes; reconcile explicitly')
         output.parent.mkdir(parents=True,exist_ok=True);tmp=output.with_suffix(output.suffix+'.pending');tmp.write_bytes(raw);tmp.replace(output)
         result={'path':str(output.resolve()),'sha256':digest(output),'provider_result':data,'quoted_unit':job['quote']['unit'],
                 'actual_measure':str(actual),'note':'Voice measure is submitted characters, not verified billing'}

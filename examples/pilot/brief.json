@@ -1,0 +1,55 @@
+{
+  "series_id": "the_last_envelope",
+  "season": 1,
+  "character_count": 2,
+  "episodes_per_season": 1,
+  "genres": [
+    "drama",
+    "family"
+  ],
+  "setting": "Present-day Pune. A small rented study. Desk at the east wall, door west, two chairs south of the desk. Warm afternoon window light.",
+  "language": "en-IN",
+  "target_season_seconds": 45,
+  "max_episode_seconds": 60,
+  "premise": "Mira is packing to leave after a rejected grant. Her brother Dev has hidden the approval letter because he fears being left alone.",
+  "central_conflict": "Dev must choose between keeping Mira close and giving her the opportunity he withheld.",
+  "ending_constraints": "Mira gets the letter and key. She leaves the room with a choice, not instant forgiveness.",
+  "visual_style": "Grounded live-action drama, natural skin and window light, restrained camera movement.",
+  "relationships": [
+    {
+      "from": "mira",
+      "to": "dev",
+      "description": "Adult siblings who share rent. Affection strained by Dev making decisions for Mira."
+    }
+  ],
+  "environments": [
+    {
+      "id": "study",
+      "description": "Small study with desk east, door west, two chairs south, window north."
+    }
+  ],
+  "characters": [
+    {
+      "id": "mira",
+      "name": "Mira",
+      "description": "Adult woman, short dark hair, blue cotton shirt, canvas bag.",
+      "goal": "Find out why her grant was rejected and leave before the next rent payment.",
+      "image": {
+        "mode": "generate",
+        "model": "nano-banana-2.1",
+        "prompt": "Original adult character Mira, short dark hair, blue cotton shirt. Neutral front portrait."
+      }
+    },
+    {
+      "id": "dev",
+      "name": "Dev",
+      "description": "Adult man, cropped dark hair, grey shirt with rolled sleeves.",
+      "goal": "Keep his sister nearby without admitting he needs her help.",
+      "image": {
+        "mode": "generate",
+        "model": "nano-banana-2.1",
+        "prompt": "Original adult character Dev, cropped dark hair, grey rolled-sleeve shirt. Neutral front portrait."
+      }
+    }
+  ]
+}

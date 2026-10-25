@@ -46,10 +46,17 @@ def image_first_plan(brief, story, image_cap=DEFAULT_IMAGE_CAP, exposure=None):
     reference_plan(brief, story['episodes'])
     cast = {c['id']: c for c in brief['characters']}
     available = {}; tasks = []; episodes = []; known = set(); location_specs = {}; prop_specs = {}
+    previous_shot = None
+    first_wardrobes = {}
     for character in brief['characters']:
         if character['image']['mode'] == 'upload':
             available['character-' + character['id']] = character['image']['path']
             known.add('character-' + character['id'])
+    for environment in brief.get('environments', []):
+        if environment.get('image'):
+            aid = 'location-' + environment['id']
+            available[aid] = environment['image']['path']
+            known.add(aid)
     for ep in story['episodes']:
         start = len(tasks)
         def add(aid, kind, prompt, dependencies=()):
@@ -63,9 +70,16 @@ def image_first_plan(brief, story, image_cap=DEFAULT_IMAGE_CAP, exposure=None):
             deps = []
             for cid in shot['visible_characters']:
                 c = cast[cid]; aid = 'character-' + cid
+                wardrobe = shot.get('start_state', {}).get('characters', {}).get(cid, {}).get('wardrobe')
+                first_wardrobes.setdefault(cid, wardrobe)
                 add(aid, 'character', c['description'] + '. ' + c['image'].get('prompt', '') +
-                    '. Identity and wardrobe reference, front and side views, consistent proportions.')
+                    ('. Required wardrobe: ' + wardrobe if wardrobe else '') +
+                    '. Identity and wardrobe reference: single person, one clear front view, neutral expression, consistent proportions. No grid or duplicate faces.')
                 deps.append(aid)
+                if wardrobe and (c['image']['mode'] == 'upload' or wardrobe != first_wardrobes[cid]):
+                    variant = aid + '-' + hashlib.sha256(wardrobe.encode()).hexdigest()[:10]
+                    add(variant, 'character_stage', 'Preserve the identity in the character reference. Wardrobe/state version: ' + wardrobe + '. Neutral expression, single clear view; do not invent a multi-view sheet.', [aid])
+                    deps[-1] = variant
             lid = 'location-' + shot['location']
             spec = shot['location_description']
             if lid in location_specs and location_specs[lid] != spec:
@@ -84,12 +98,19 @@ def image_first_plan(brief, story, image_cap=DEFAULT_IMAGE_CAP, exposure=None):
                 prop_specs[aid] = description
                 add(aid, 'prop', description + '. Object reference: orientation, scale, front and reverse.')
                 deps.append(aid)
+            # Reuse composition within one scene, never force a chain across locations.
+            if previous_shot and shot.get('scene_id') and (shot['scene_id'], shot['location']) == (previous_shot.get('scene_id'), previous_shot['location']):
+                if len(deps) < 9:
+                    deps.append('frame-' + previous_shot['id'])
             add('frame-' + shot['id'], 'shot_frame', json.dumps({
                 'camera': shot['camera'], 'action': shot['action'], 'wardrobe': shot['wardrobe'],
+                'start_state': shot.get('start_state'), 'end_state': shot.get('end_state'),
+                'narrative_purpose': shot.get('narrative_purpose'),
                 'props': shot['props'], 'performance': [line.get('performance', '') for line in ep['lines']
                             if line['id'] in shot['line_ids']],
                 'instruction': 'Use reference identities, wardrobe, location layout and prop orientation. Show the specified action and expression. Fresh keyframe for a location change; never chain across locations.'
             }, sort_keys=True), deps)
+            previous_shot = shot
         count = len(tasks) - start
         episodes.append({'episode_id': ep['id'], 'new_images': count, 'planned_credits': count * CREDITS_PER_IMAGE})
     blockers = []
@@ -108,13 +129,16 @@ def image_first_plan(brief, story, image_cap=DEFAULT_IMAGE_CAP, exposure=None):
     total = sum(e['planned_credits'] for e in episodes)
     if exposure is not None and sum(exposure.values()) + total > 30000:
         blockers.append('Combined image/video batch cap exceeded')
-    signature = hashlib.sha256(json.dumps(tasks, sort_keys=True).encode()).hexdigest()
+    from pathlib import Path
+    from .core import digest
+    source_hashes={aid:digest(path) if Path(path).is_file() else None for aid,path in available.items()}
+    signature = hashlib.sha256(json.dumps({'tasks':tasks,'uploaded':available,'source_hashes':source_hashes}, sort_keys=True).encode()).hexdigest()
     return {'model': MODEL, 'resolution': '1k', 'image_count_per_request': 1,
             'credits_per_image': CREDITS_PER_IMAGE, 'sources': SOURCES,
             'price_checked_on': '2026-10-20', 'recheck_price_before_execution': True,
             'image_cap_per_episode': image_cap, 'episode_credit_cap': 3000, 'batch_credit_cap': 30000,
             'planned_images': len(tasks), 'planned_credits': total, 'episodes': episodes,
-            'uploaded_local_references': available, 'tasks': tasks, 'plan_sha256': signature,
+            'uploaded_local_references': available, 'source_hashes':source_hashes,'tasks': tasks, 'plan_sha256': signature,
             'budget_blockers': blockers, 'live_enabled': False, 'paid_requests': 0,
             'key_policy': 'Yogita image/video key only; never voice or other services',
             'approval_required': 'Exact plan hash, count, credits and current owner approval before key use; model choice alone is not spend approval',
@@ -144,6 +168,10 @@ def require_rendered_images(plan, accepted):
             raise ValueError('Required rendered image missing: ' + aid)
         if item.get('sha256') != digest(path) or item.get('plan_sha256') != plan['plan_sha256']:
             raise ValueError('Image or plan changed since pixel check: ' + aid)
+        if aid in plan['uploaded_local_references']:
+            source=Path(plan['uploaded_local_references'][aid])
+            if not source.is_file() or digest(source)!=item['sha256'] or ('source_hashes' in plan and plan['source_hashes'].get(aid)!=item['sha256']):
+                raise ValueError('Original uploaded reference missing/changed: '+aid)
         if not item.get('reviewer') or not item.get('reviewed_at') or any(item.get('checks', {}).get(k) is not True for k in checks):
             raise ValueError('Actual-pixel check evidence incomplete: ' + aid)
     return {'status': 'image_evidence_bound_not_quality_certified', 'count': len(required)}

@@ -20,7 +20,7 @@ Other CLI commands cover story validation, reference planning, measured line tim
 
 ## Input and story
 
-The loopback-only form collects character count (1-50), episodes (10-50), genre multi-select, a single era/setting field up to 1,000 Unicode code points, English language, season target and episode maximum (<=180 seconds). Each character needs an ID, name, description and uploaded PNG/JPEG/WebP or Nano Banana generation prompt. Upload limits: 5 MiB/image, 30 MiB/request. Container screening is not image-quality validation.
+The loopback-only form collects character count (1-50), episodes (1-50), genre multi-select, a single era/setting field up to 1,000 Unicode code points, English language, season target and episode maximum (<=180 seconds). Each character needs an ID, name, description and uploaded PNG/JPEG/WebP or Nano Banana generation prompt. Upload limits: 5 MiB/image, 30 MiB/request. The 25 October update adds decoded-image checks, story goals/relationships, environment references and staged writing; see [STORY_PIPELINE.md](STORY_PIPELINE.md) for the current contract. Image integrity is not image-quality validation.
 
 Story schema: series ID and season matching the brief; each episode has unique ID, title, draft_seconds, setup, turn, cliffhanger, lines and shots. Lines have globally unique IDs, cast speaker or narrator, text and performance direction. Shots cover the ordered lines exactly once and specify location/description, visible characters, camera, action, wardrobe and props. Runtime is estimated until accepted audio is measured. See tests and `writer.py:season_schema()` for examples.
 

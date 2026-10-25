@@ -81,7 +81,7 @@ class NvidiaClaudeWriter:
         if type(count) is not int or count<1:raise ValueError('Invalid input token count')
         maximum=Decimal(count)*Decimal('2')/1000000+Decimal(c['max_output_tokens'])*Decimal('10')/1000000
         if maximum>money(c['claude_run_cap_usd']):raise ValueError('Worst-case Claude request exceeds run cap')
-        ledger=SpendLedger(self.ledger_path);key=a['run_id']+'-claude-writer'
+        ledger=SpendLedger(self.ledger_path);key=a['run_id']+'-claude-'+signature(body)[:16]
         try:
             ledger.reserve(key,'claude','USD',payload,{'amount':str(maximum),'unit':'USD','verified_at':dt.date.today().isoformat()},
                 {'cap':c['claude_run_cap_usd'],'unit':'USD','provider':'claude','valid_on':dt.date.today().isoformat(),'approval_reference':a['approval_reference']})
@@ -105,6 +105,31 @@ class NvidiaClaudeWriter:
         except NoOutputStall:
             self.approve(body)  # expiry/payload check again before paid fallback
             return self.claude(body)
+    def staged(self,workspace,max_repairs=1):
+        """Every new request retains exact-payload approval and the shared spend cap."""
+        import copy
+        from .director import StoryDirector
+        from .workflow import SubmissionNotStarted
+        def transport(body):
+            scoped=copy.copy(self)
+            wanted=signature({'body':body,'config':self.config})
+            approvals=self.approval.get('stages',[self.approval])
+            token=next((a for a in approvals if a.get('request_sha256')==wanted),None)
+            if token is None:
+                raise SubmissionNotStarted('Exact stage approval missing for request '+wanted+'; request JSON is saved in writing directory')
+            scoped.approval=token
+            try:
+                scoped.approve(body)
+                if not scoped.keys.get('nvidia'):raise ValueError('NVIDIA key missing')
+            except (ValueError,RuntimeError,KeyError) as error:
+                raise SubmissionNotStarted(str(error)) from error
+            return scoped.transport(body)
+        director=StoryDirector(transport,NVIDIA_MODEL,workspace,max_repairs)
+        def write(request):
+            result=director(request)
+            result['writer_execution']={'provider':'nvidia_with_explicit_claude_fallback','paid_requests':None,'cost_status':'consult_shared_writer_ledger'}
+            return result
+        return write
     def __call__(self,request):
         previous={'series_id':request['brief']['series_id'],'season':request['brief']['season']-1,'canon':request['previous_canon']} if request['previous_canon'] else None
         return write_season(request['brief'],self.transport,NVIDIA_MODEL,previous,enabled=self.enabled,

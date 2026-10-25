@@ -9,6 +9,7 @@ def reference_plan(brief, episodes):
         raise ValueError('Episode count must match brief')
     cast = {c['id']: c for c in brief['characters']}
     assets = []
+    environment_sources = {e['id']: e for e in brief.get('environments', [])}
     for cid, character in cast.items():
         assets.append({'id': 'character-' + cid, 'kind': 'character', 'identity': cid,
                        'source': character['image'], 'required_review': ['identity', 'wardrobe', 'style'],
@@ -31,6 +32,10 @@ def reference_plan(brief, episodes):
                 locations[location] = {'id': 'location-' + location, 'kind': 'location',
                                        'setting': brief['setting'], 'description': shot['location_description'],
                                        'required_review': ['layout', 'style', 'era', 'camera_axes']}
+                if location in environment_sources and environment_sources[location].get('image'):
+                    locations[location]['source'] = environment_sources[location]['image']
+            elif locations[location]['description'] != shot['location_description']:
+                raise ValueError('Conflicting shared location description: ' + location)
             refs = ['location-' + location] + ['character-' + cid for cid in shot['visible_characters']]
             for prop in shot.get('recurring_props', []):
                 pid = identifier(prop['id'], 'prop id')
@@ -41,6 +46,9 @@ def reference_plan(brief, episodes):
             assets.append({'id': 'frame-' + sid, 'kind': 'shot_frame', 'shot': sid,
                            'references': refs, 'camera': shot['camera'], 'action': shot['action'],
                            'wardrobe': shot['wardrobe'], 'required_review': ['faces', 'wardrobe', 'props', 'action', 'expression', 'composition']})
+            if 'start_state' in shot:
+                assets[-1].update({'start_state': shot['start_state'], 'end_state': shot['end_state'],
+                                   'narrative_purpose': shot['narrative_purpose']})
     return {'assets': assets + list(locations.values()), 'paid_requests': 0,
             'note': 'This is a per-shot reference plan, not generated or approved images.'}
 
